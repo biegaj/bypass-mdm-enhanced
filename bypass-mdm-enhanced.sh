@@ -317,13 +317,17 @@ select opt in "${options[@]}"; do
 
 		# Validate critical paths
 		info "Validating system paths..."
-		system_path="/Volumes/$system_volume"
-		data_path="/Volumes/$data_volume"
-		dscl_path="$data_path/private/var/db/dslocal/nodes/Default"
+system_volume="Macintosh HD"
+data_volume="Macintosh HD - Data"
 
-		if [ ! -d "$system_path" ] || [ ! -d "$data_path" ] || [ ! -d "$dscl_path" ]; then
-			error_exit "System paths validation failed."
-		fi
+system_path="/Volumes/$system_volume"
+data_path="/Volumes/$data_volume"
+dscl_path="$data_path/private/var/db/dslocal/nodes/Default"
+
+if [ ! -d "$system_path" ] || [ ! -d "$data_path" ] || [ ! -d "$dscl_path" ]; then
+    echo "System paths validation failed."
+    exit 1
+fi
 		success "All system paths validated"
 		echo ""
 
